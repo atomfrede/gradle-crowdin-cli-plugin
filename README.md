@@ -3,7 +3,7 @@ A gradle plugin to utilize the crowdin cli to interact with crowdin
 
 ## Usage
 
-You need to copy the crowin-cli into you project and configure where to find the executable cli jar file (relative to your build file):
+The plugin will download the `crowin-cli.jar` for you into `gradle/tools/crowdin-cli/crowdin-cli.jar`. If you want to provide and own cli jar you can do so:
 
 ```
 crowdin {

@@ -3,7 +3,7 @@ A gradle plugin to utilize the crowdin cli to interact with crowdin
 
 ## Usage
 
-The plugin will download the `crowin-cli.jar` for you into `gradle/tools/crowdin-cli/crowdin-cli.jar`. If you want to provide and own cli jar you can do so:
+The plugin will download the `crowin-cli.jar` for you into `gradle/tools/crowdin-cli/crowdin-cli.jar`. If you want to provide and own cli jar you can do so. The plugin always downloads the current latest cli. So if you want to update the cli you can explicitly trigger a download by `crowdinCliDownload` task.
 
 ```
 crowdin {

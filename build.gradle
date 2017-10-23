@@ -1,0 +1,17 @@
+apply plugin: 'java-gradle-plugin'
+apply from: "$rootDir/gradle/publishing-local.gradle"
+
+group = 'io.github.atomfrede'
+version = '0.0.1'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.ajoberstar:gradle-git:1.7.2'
+    compile 'de.undercouch:gradle-download-task:3.3.0'
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude group: 'org.codehaus.groovy'
+    }
+}

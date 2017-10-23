@@ -1,10 +1,8 @@
 package io.github.atomfrede.gradle.plugins.crowdincli;
 
 import io.github.atomfrede.gradle.plugins.crowdincli.task.CrowdinCliDownloadTask;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.UnzipCliTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.internal.file.archive.ZipFileTree;
 import org.gradle.api.tasks.Copy;
 
 import java.util.Collections;
@@ -20,14 +18,16 @@ public class CrowdinCliPlugin implements Plugin<Project> {
 
     }
 
-    private void unzipCrowdinCli(Project project, CrowdinCliDownloadTask crowdinCliDownloadTask) {
+    private Copy unzipCrowdinCli(Project project, CrowdinCliDownloadTask crowdinCliDownloadTask) {
 
-        project.getTasks().create("unzipCli", Copy.class, copy -> {
+        return project.getTasks().create("unzipCrowdinCli", Copy.class, copy -> {
 
             copy.dependsOn(Collections.singletonList(crowdinCliDownloadTask));
             copy.setGroup(GROUP);
             copy.setDescription("Unzip the crowdin cli");
-            copy.setDestinationDir(crowdinCliDownloadTask.getDest());
+
+            copy.from(project.zipTree(crowdinCliDownloadTask.getDest()));
+            copy.setDestinationDir(crowdinCliDownloadTask.getDest().getParentFile());
         });
 
     }

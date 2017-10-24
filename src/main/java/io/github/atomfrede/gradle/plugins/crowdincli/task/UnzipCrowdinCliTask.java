@@ -42,7 +42,7 @@ public class UnzipCrowdinCliTask extends AbstractCopyTask {
 
         // flatten the result, such that we have a stable path where to find the crowdin cli executable
         eachFile(fileCopyDetails -> fileCopyDetails.setRelativePath(new RelativePath(true, fileCopyDetails.getName())));
-        
+
     }
 
     private CrowdinCliDownloadTask getDownloadTask() {

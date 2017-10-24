@@ -1,4 +1,4 @@
-package io.github.atomfrede.gradle.plugins.crowdincli.task;
+package io.github.atomfrede.gradle.plugins.crowdincli.task.cli;
 
 import io.github.atomfrede.gradle.plugins.crowdincli.CrowdinCliPlugin;
 import org.gradle.api.InvalidUserDataException;
@@ -19,12 +19,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class UnzipCrowdinCliTask extends AbstractCopyTask {
+public class CrowdinCliUnzipTask extends AbstractCopyTask {
 
     public static final String NAME = "unzipCrowdinCli";
     public static final String DESCRIPTION = "Unzip the crowdin cli into gradle/crowdin-cli";
 
-    public UnzipCrowdinCliTask() {
+    public CrowdinCliUnzipTask() {
 
         super();
         getProject().getTasksByName("unzipCrowdinCli", true);

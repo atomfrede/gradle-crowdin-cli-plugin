@@ -8,5 +8,5 @@ public interface CrowdinSpec {
 
     void identityFile(File identity);
 
-    
+
 }

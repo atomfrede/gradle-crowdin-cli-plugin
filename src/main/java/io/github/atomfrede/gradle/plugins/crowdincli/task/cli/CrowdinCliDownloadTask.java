@@ -1,4 +1,4 @@
-package io.github.atomfrede.gradle.plugins.crowdincli.task;
+package io.github.atomfrede.gradle.plugins.crowdincli.task.cli;
 
 import de.undercouch.gradle.tasks.download.Download;
 

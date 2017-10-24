@@ -1,6 +1,7 @@
 package io.github.atomfrede.gradle.plugins.crowdincli;
 
 import io.github.atomfrede.gradle.plugins.crowdincli.task.CrowdinCliDownloadTask;
+import io.github.atomfrede.gradle.plugins.crowdincli.task.UnzipCrowdinCliTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.file.FileTree;
@@ -19,20 +20,22 @@ public class CrowdinCliPlugin implements Plugin<Project> {
     public void apply(Project project) {
 
         CrowdinCliDownloadTask downloadTask = createCrowdinCliDownloadTask(project);
-        Copy unzipTask = unzipCrowdinCli(project, downloadTask);
 
-        File crowdinCliExecutable = getCrowdinCli(project, unzipTask);
+        UnzipCrowdinCliTask unzipCrowdinCliTask = project.getTasks().create(UnzipCrowdinCliTask.NAME, UnzipCrowdinCliTask.class);
+
+        String crowdinCliExecutable = getCrowdinCli(project, unzipCrowdinCliTask);
 
         project.getTasks().create("crowdinHelp", Exec.class, exec -> {
-            exec.commandLine("java", "-jar", crowdinCliExecutable.getAbsolutePath(), "--help");
+            exec.commandLine("java", "-jar", crowdinCliExecutable, "--help");
             exec.setGroup(GROUP);
             exec.setDescription("Execute and display the crowdin --help output");
-            exec.dependsOn(unzipTask);
+            exec.dependsOn(unzipCrowdinCliTask);
         });
 
     }
 
-    private File getCrowdinCli(Project project, Copy unzipTask) {
+    // TODO this works not for new, empty project as this is resolved on configuration time
+    private String getCrowdinCli(Project project, UnzipCrowdinCliTask unzipTask) {
 
         FileTree tree = project.fileTree(unzipTask.getDestinationDir(), files -> {
             files.include("**/crowdin-cli.jar");
@@ -41,21 +44,12 @@ public class CrowdinCliPlugin implements Plugin<Project> {
         List<File> files = new ArrayList<>();
         files.addAll(tree.getFiles());
 
-        return files.get(0);
+        if (files.size() >0) {
+            return files.get(0).getAbsolutePath();
+        }
 
-    }
+        return "";
 
-    private Copy unzipCrowdinCli(Project project, CrowdinCliDownloadTask crowdinCliDownloadTask) {
-
-        return project.getTasks().create("unzipCrowdinCli", Copy.class, copy -> {
-
-            copy.dependsOn(Collections.singletonList(crowdinCliDownloadTask));
-            copy.setGroup(GROUP);
-            copy.setDescription("Unzip the crowdin cli");
-
-            copy.from(project.zipTree(crowdinCliDownloadTask.getDest()));
-            copy.setDestinationDir(crowdinCliDownloadTask.getDest().getParentFile());
-        });
 
     }
 

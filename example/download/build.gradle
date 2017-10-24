@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'de.undercouch:gradle-download-task:3.3.0'
+    }
+}
+
+apply plugin: 'de.undercouch.download'
+
+import de.undercouch.gradle.tasks.download.Download
+
+task downloadZipFile(type: Download) {
+    group = "download"
+    src 'https://downloads.crowdin.com/cli/v2/crowdin-cli.zip'
+    dest new File('gradle', 'crowdin-cli.zip')
+}
+
+task downloadAndUnzipFile(dependsOn: downloadZipFile, type: Copy) {
+    group = "download"
+    include '**/*.jar'
+    from zipTree(downloadZipFile.dest);
+    into new File('gradle', 'crowdin-cli');
+    includeEmptyDirs false
+    eachFile { FileCopyDetails fcp ->
+        // remap the file to the root
+        String[] segments = [fcp.getName()]
+        fcp.relativePath = new RelativePath(true, segments)
+    }
+}

@@ -23,33 +23,14 @@ public class CrowdinCliPlugin implements Plugin<Project> {
 
         UnzipCrowdinCliTask unzipCrowdinCliTask = project.getTasks().create(UnzipCrowdinCliTask.NAME, UnzipCrowdinCliTask.class);
 
-        String crowdinCliExecutable = getCrowdinCli(project, unzipCrowdinCliTask);
 
         project.getTasks().create("crowdinHelp", Exec.class, exec -> {
-            exec.commandLine("java", "-jar", crowdinCliExecutable, "--help");
+
+            exec.commandLine("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar", "--help");
             exec.setGroup(GROUP);
             exec.setDescription("Execute and display the crowdin --help output");
             exec.dependsOn(unzipCrowdinCliTask);
         });
-
-    }
-
-    // TODO this works not for new, empty project as this is resolved on configuration time
-    private String getCrowdinCli(Project project, UnzipCrowdinCliTask unzipTask) {
-
-        FileTree tree = project.fileTree(unzipTask.getDestinationDir(), files -> {
-            files.include("**/crowdin-cli.jar");
-        });
-
-        List<File> files = new ArrayList<>();
-        files.addAll(tree.getFiles());
-
-        if (files.size() >0) {
-            return files.get(0).getAbsolutePath();
-        }
-
-        return "";
-
 
     }
 

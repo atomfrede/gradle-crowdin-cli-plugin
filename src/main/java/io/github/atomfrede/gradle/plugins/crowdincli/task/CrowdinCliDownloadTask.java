@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 public class CrowdinCliDownloadTask extends Download {
 
     public static final String TASK_NAME = "downloadCrowdinCli";
-    public static final String DESCRIPTION = "Downloads the latest crowdin cli to into gradle/X.X.X/crowdin-cli.jar";
+    public static final String DESCRIPTION = "Downloads the latest crowdin cli archive to into gradle/crowdin-cli/crowdin-cli.zip";
 
     private static final String crowdinCliDownloadUrl = "https://downloads.crowdin.com/cli/v2/crowdin-cli.zip";
 
@@ -17,7 +17,7 @@ public class CrowdinCliDownloadTask extends Download {
 
         try {
             src(crowdinCliDownloadUrl);
-            dest("./gradle/crowdin-cli.zip");
+            dest("./gradle/crowdin-cli/crowdin-cli.zip");
             onlyIfModified(true);
 
         } catch (MalformedURLException e) {

@@ -14,5 +14,6 @@ before_install:
   - pip install --user codecov
 
 after_success:
- - codecov
+ - bash <(curl -s https://codecov.io/bash)
+# - codecov
  - java -cp ~/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml

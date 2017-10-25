@@ -28,6 +28,7 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
         setGroup(CrowdinCliPlugin.GROUP);
 
         setDependsOn(Collections.singleton(getUnzipTask()));
+
         command = new ArrayList<>();
 
     }
@@ -53,7 +54,7 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
     @Override
     public void verbose(boolean verbose) {
-        
+
     }
 
     @Override

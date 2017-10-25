@@ -3,13 +3,8 @@ A gradle plugin to utilize the crowdin cli to interact with crowdin
 
 ## Usage
 
-The plugin will download the `crowin-cli.jar` for you into `gradle/tools/crowdin-cli/crowdin-cli.jar`. If you want to provide and own cli jar you can do so. The plugin always downloads the current latest cli. So if you want to update the cli you can explicitly trigger a download by `crowdinCliDownload` task.
-
-```
-crowdin {
-  cli = 'crowdin-cli.jar'
-}
-```
+The plugin will download the `crowin-cli.jar` for you into `gradle/crowdin-cli/crowdin-cli/crowdin-cli.jar`. 
+The plugin always downloads the current latest cli. The download task checks if the zip file on server is newer than the downloaded one and download the newer file automatically.
 
 The plugin adds two task which use the default crowdin config file `crowdin.yaml`. You can upload source files via `crowdinUpload` and download translated files via `crowdinDownload`.
 

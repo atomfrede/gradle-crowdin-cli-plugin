@@ -1,17 +1,10 @@
 package io.github.atomfrede.gradle.plugins.crowdincli;
 
-import io.github.atomfrede.gradle.plugins.crowdincli.task.CrowdinCliDownloadTask;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.UnzipCrowdinCliTask;
+import io.github.atomfrede.gradle.plugins.crowdincli.task.cli.CrowdinCliDownloadTask;
+import io.github.atomfrede.gradle.plugins.crowdincli.task.cli.CrowdinCliUnzipTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.file.FileTree;
-import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.Exec;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class CrowdinCliPlugin implements Plugin<Project> {
 
@@ -21,35 +14,24 @@ public class CrowdinCliPlugin implements Plugin<Project> {
 
         CrowdinCliDownloadTask downloadTask = createCrowdinCliDownloadTask(project);
 
-        UnzipCrowdinCliTask unzipCrowdinCliTask = project.getTasks().create(UnzipCrowdinCliTask.NAME, UnzipCrowdinCliTask.class);
+        CrowdinCliUnzipTask crowdinCliUnzipTask = project.getTasks().create(CrowdinCliUnzipTask.NAME, CrowdinCliUnzipTask.class);
 
-        String crowdinCliExecutable = getCrowdinCli(project, unzipCrowdinCliTask);
 
         project.getTasks().create("crowdinHelp", Exec.class, exec -> {
-            exec.commandLine("java", "-jar", crowdinCliExecutable, "--help");
+
+            exec.commandLine("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar", "--help");
             exec.setGroup(GROUP);
             exec.setDescription("Execute and display the crowdin --help output");
-            exec.dependsOn(unzipCrowdinCliTask);
+            exec.dependsOn(crowdinCliUnzipTask);
         });
 
-    }
+        project.getTasks().create("crowdinLint", Exec.class, exec -> {
 
-    // TODO this works not for new, empty project as this is resolved on configuration time
-    private String getCrowdinCli(Project project, UnzipCrowdinCliTask unzipTask) {
-
-        FileTree tree = project.fileTree(unzipTask.getDestinationDir(), files -> {
-            files.include("**/crowdin-cli.jar");
+            exec.commandLine("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar", "lint");
+            exec.setGroup(GROUP);
+            exec.setDescription("Lint your config file");
+            exec.dependsOn(crowdinCliUnzipTask);
         });
-
-        List<File> files = new ArrayList<>();
-        files.addAll(tree.getFiles());
-
-        if (files.size() >0) {
-            return files.get(0).getAbsolutePath();
-        }
-
-        return "";
-
 
     }
 

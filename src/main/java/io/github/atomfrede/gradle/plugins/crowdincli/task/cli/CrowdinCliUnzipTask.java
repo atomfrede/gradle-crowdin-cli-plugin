@@ -1,8 +1,9 @@
-package io.github.atomfrede.gradle.plugins.crowdincli.task;
+package io.github.atomfrede.gradle.plugins.crowdincli.task.cli;
 
 import io.github.atomfrede.gradle.plugins.crowdincli.CrowdinCliPlugin;
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Task;
+import org.gradle.api.file.RelativePath;
 import org.gradle.api.internal.file.FileResolver;
 import org.gradle.api.internal.file.copy.CopyAction;
 import org.gradle.api.internal.file.copy.CopySpecInternal;
@@ -18,12 +19,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class UnzipCrowdinCliTask extends AbstractCopyTask {
+public class CrowdinCliUnzipTask extends AbstractCopyTask {
 
     public static final String NAME = "unzipCrowdinCli";
     public static final String DESCRIPTION = "Unzip the crowdin cli into gradle/crowdin-cli";
 
-    public UnzipCrowdinCliTask() {
+    public CrowdinCliUnzipTask() {
 
         super();
         getProject().getTasksByName("unzipCrowdinCli", true);
@@ -31,11 +32,16 @@ public class UnzipCrowdinCliTask extends AbstractCopyTask {
         setGroup(CrowdinCliPlugin.GROUP);
         setDescription(DESCRIPTION);
 
+        // only include the crowdin-cli.jar
+        include("**/*.jar");
+        setIncludeEmptyDirs(false);
+
         from(getProject().zipTree(getDownloadTask().getDest()));
 
-        File destination = new File(getDownloadTask().getDest().getParentFile(), "crowdin-cli");
-        setDestinationDir(destination);
+        setDestinationDir(getDownloadTask().getDest().getParentFile());
 
+        // flatten the result, such that we have a stable path where to find the crowdin cli executable
+        eachFile(fileCopyDetails -> fileCopyDetails.setRelativePath(new RelativePath(true, fileCopyDetails.getName())));
 
     }
 

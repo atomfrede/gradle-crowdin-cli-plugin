@@ -80,7 +80,7 @@ public class FunctionalPluginTest {
             .withProjectDir(testProjectDir.getRoot())
             .withArguments("downloadCrowdinCli")
             .build();
-        
+
         // TODO check if the file is download inside the temporary directory
     }
 

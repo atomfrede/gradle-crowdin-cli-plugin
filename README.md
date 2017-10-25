@@ -23,7 +23,7 @@ task crowdinLint (type: CrowdinCli) {
 
 You can create own task to customize both upload and download depending on you configuration:
 
-```
+```gradle
 task uploadCustom (type: CrowdinUpload) {
   config = 'myCustomConfig.yaml'
 }
@@ -37,22 +37,10 @@ task downloadCustom (type: CrowdinDownload) {
 
 You can use this plugin to automate and integration crowdin into your build pipeline. E.g. let jenkins upload new sources and download translations which are then also commited to git. The plugin checks for the configured files in the config such it can't happen you ci will commit other files except translation files. The used commit message can be customized.
 
-You can configure git integration on a global level for all crowdin task. By default git integration is disabled.
+You can configure git integration for each task. By default git integration is disabled.
 
-```
-crowdin {
-  git {
-   enable = true,
-   commitMessage = 'Sync Translations via crowdin`
-  }
-}
-```
-
-Or for each task:
-
-```
+```gradle
 task downloadCustom (type: CrowdinDownload) {
-  config = 'myCustomConfig.yaml'
   git {
    enable = true,
    commitMessage = 'My Custom Commit Message'

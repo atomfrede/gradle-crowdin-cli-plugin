@@ -1,12 +1,9 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin;
 
 import io.github.atomfrede.gradle.plugins.crowdincli.CrowdinCliPlugin;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.download.CrowdinCliDownloadTask;
 import io.github.atomfrede.gradle.plugins.crowdincli.task.download.CrowdinCliUnzipTask;
-import org.gradle.api.DefaultTask;
 import org.gradle.api.Task;
 import org.gradle.api.tasks.AbstractExecTask;
-import org.gradle.api.tasks.Exec;
 import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
@@ -15,9 +12,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.StreamSupport;
 
 public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinSpec {
+
+    private static final List<String> CROWDIN_CLI_COMMAND = Arrays.asList("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar");
 
     private List<String> command;
     private File configFile;
@@ -31,8 +29,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         setDependsOn(Collections.singleton(getUnzipTask()));
         command = new ArrayList<>();
-
-        setCommandLine("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar");
 
     }
 
@@ -86,7 +82,8 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     @TaskAction
     protected void exec() {
 
-        List<String> commandLine = super.getCommandLine();
+        List<String> commandLine = new ArrayList<>();
+        commandLine.addAll(CROWDIN_CLI_COMMAND);
         commandLine.addAll(getCommand());
 
         setCommandLine(commandLine);

@@ -52,6 +52,11 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     }
 
     @Override
+    public void verbose(boolean verbose) {
+        
+    }
+
+    @Override
     public File getConfigFile() {
 
         return configFile;

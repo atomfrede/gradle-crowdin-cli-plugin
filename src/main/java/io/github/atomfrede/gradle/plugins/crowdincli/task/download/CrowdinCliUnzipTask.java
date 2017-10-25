@@ -55,6 +55,7 @@ public class CrowdinCliUnzipTask extends AbstractCopyTask {
         return (CrowdinCliDownloadTask) allTasks.get(0);
     }
 
+    @Override
     protected CopyAction createCopyAction() {
         File destinationDir = this.getDestinationDir();
         if (destinationDir == null) {
@@ -64,7 +65,9 @@ public class CrowdinCliUnzipTask extends AbstractCopyTask {
         }
     }
 
+    @Override
     protected CopySpecInternal createRootSpec() {
+
         Instantiator instantiator = this.getInstantiator();
         FileResolver fileResolver = this.getFileResolver();
         return (CopySpecInternal)instantiator.newInstance(DestinationRootCopySpec.class, new Object[]{fileResolver, super.createRootSpec()});

@@ -1,4 +1,6 @@
 [![Build Status](https://img.shields.io/travis/atomfrede/gradle-crowdin-cli-plugin.svg?style=flat-square)](https://travis-ci.org/atomfrede/gradle-crowdin-cli-plugin)
+[![Codacy](https://img.shields.io/codacy/43d1920955b74cacbf38b14e45905f14.svg?style=flat-square)](https://www.codacy.com/app/frederik-hahne/gradle-crowdin-cli-plugin/dashboard)
+[![Codecov branch](https://img.shields.io/codecov/c/github/atomfrede/gradle-crowdin-cli-plugin/master.svg?style=flat-square)](https://codecov.io/github/atomfrede/jadenticon?branch=master)
 
 # gradle-crowdin-cli-plugin
 A gradle plugin to utilize the crowdin cli to interact with crowdin

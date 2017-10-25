@@ -6,10 +6,8 @@ import org.gradle.util.Configurable;
 
 public class CrowdinCliExtension implements Configurable<CrowdinCliExtension> {
 
-    private Project project;
 
     public CrowdinCliExtension(Project project) {
-        this.project = project;
     }
 
     @Override

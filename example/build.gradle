@@ -14,3 +14,13 @@ repositories {
     mavenLocal()
     jcenter()
 }
+
+import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.CrowdinCli;
+
+task crowdinLint(type: CrowdinCli) {
+    command 'lint'
+}
+
+task crowdinHelp(type: CrowdinCli) {
+    command 'help'
+}

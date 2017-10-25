@@ -10,11 +10,23 @@ import java.util.List;
  */
 public interface CrowdinSpec {
 
+    /**
+     * The config file to use for cli interaction. If you don't provide a config file the default is assumed, which is
+     * crowdin.yaml
+     * @param configFile
+     */
     void configFile(File configFile);
 
     void identityFile(File identity);
 
-    void command(List<String> command);
+    void command(String... arguments);
+
+    File getConfigFile();
+
+    File getIdentity();
+
+    List<String> getCommand();
+
 
 
 }

@@ -8,6 +8,17 @@ The plugin always downloads the current latest cli. The download task checks if 
 
 The plugin adds two task which use the default crowdin config file `crowdin.yaml`. You can upload source files via `crowdinUpload` and download translated files via `crowdinDownload`.
 
+## Simple Tasks
+
+```gradle
+task crowdinHelp (type: CrowdinCli) {
+    command 'help'
+}
+
+task crowdinLint (type: CrowdinCli) {
+    command 'lint'
+}
+```
 ## Custom Tasks
 
 You can create own task to customize both upload and download depending on you configuration:

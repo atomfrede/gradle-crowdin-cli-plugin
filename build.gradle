@@ -1,5 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
+    }
+}
+
 apply plugin: 'java-gradle-plugin'
 apply from: "$rootDir/gradle/publishing-local.gradle"
+apply from: "$rootDir/gradle/codeQuality.gradle"
+apply plugin: 'com.github.ben-manes.versions'
 
 group = 'io.github.atomfrede'
 version = '0.0.1'
@@ -15,3 +27,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.8.0'
 }
+
+check.dependsOn jacocoTestReport

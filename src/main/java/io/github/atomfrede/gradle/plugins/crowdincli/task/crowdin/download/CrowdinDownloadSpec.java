@@ -1,10 +1,9 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.download;
 
-import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.CrowdinSpec;
+import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.CrowdinSyncSpec;
 
-public interface CrowdinDownloadSpec extends CrowdinSpec {
+public interface CrowdinDownloadSpec extends CrowdinSyncSpec {
 
-    void dryRun(boolean dryRun);
+    void language(String language);
 
-    boolean isDryRun();
 }

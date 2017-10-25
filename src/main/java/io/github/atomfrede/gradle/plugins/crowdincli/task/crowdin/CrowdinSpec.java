@@ -21,6 +21,8 @@ public interface CrowdinSpec {
 
     void command(String... arguments);
 
+    void verbose(boolean verbose);
+
     File getConfigFile();
 
     File getIdentity();

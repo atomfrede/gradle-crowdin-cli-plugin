@@ -4,7 +4,6 @@ import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.CrowdinSpec;
 
 public interface CrowdinUploadSpec extends CrowdinSpec {
 
-    void dryRun(boolean dryRun);
+    void autoUpdate(boolean enabled);
 
-    boolean isDryRun();
 }

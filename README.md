@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/atomfrede/gradle-crowdin-cli-plugin.svg?style=flat-square)](https://travis-ci.org/atomfrede/gradle-crowdin-cli-plugin)
+[![Build Status](https://img.shields.io/travis/atomfrede/gradle-crowdin-cli-plugin.svg?style=flat-square)](https://travis-ci.org/atomfrede/gradle-crowdin-cli-plugin)
 
 # gradle-crowdin-cli-plugin
 A gradle plugin to utilize the crowdin cli to interact with crowdin

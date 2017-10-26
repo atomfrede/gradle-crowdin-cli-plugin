@@ -4,6 +4,9 @@ import io.github.atomfrede.gradle.plugins.crowdincli.CrowdinCliPlugin;
 import io.github.atomfrede.gradle.plugins.crowdincli.task.download.CrowdinCliUnzipTask;
 import org.gradle.api.Task;
 import org.gradle.api.tasks.AbstractExecTask;
+import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.InputFile;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
@@ -20,6 +23,7 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     private List<String> command;
     private File configFile;
     private File identityFile;
+    private boolean verbose = false;
 
     public CrowdinCli() {
 
@@ -27,9 +31,12 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         setGroup(CrowdinCliPlugin.GROUP);
 
-        setDependsOn(Collections.singleton(getUnzipTask()));
+        setDependsOn(Collections.singleton(findUnzipTask()));
 
         command = new ArrayList<>();
+
+        identityFile = null;
+        configFile = null;
 
     }
 
@@ -55,14 +62,20 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     @Override
     public void verbose(boolean verbose) {
 
+        this.verbose = verbose;
+
     }
 
+    @InputFile
+    @Optional
     @Override
     public File getConfigFile() {
 
         return configFile;
     }
 
+    @InputFile
+    @Optional
     @Override
     public File getIdentity() {
 
@@ -70,11 +83,19 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     }
 
     @Override
+    @Input
     public List<String> getCommand() {
         return command;
     }
 
-    private CrowdinCliUnzipTask getUnzipTask() {
+    @Override
+    @Input
+    public boolean isVerbose() {
+
+        return this.verbose;
+    }
+
+    private CrowdinCliUnzipTask findUnzipTask() {
 
         Set<Task> tasks = getProject().getTasksByName(CrowdinCliUnzipTask.TASK_NAME, true);
 
@@ -90,10 +111,16 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         List<String> commandLine = new ArrayList<>();
         commandLine.addAll(CROWDIN_CLI_COMMAND);
+
+        if (isVerbose()) {
+            commandLine.add("--verbose");
+        }
+
         commandLine.addAll(getCommand());
 
         setCommandLine(commandLine);
 
+        System.out.println(commandLine);
         super.exec();
     }
 

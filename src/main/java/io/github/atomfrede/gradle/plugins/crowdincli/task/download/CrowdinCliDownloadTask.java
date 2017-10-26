@@ -4,6 +4,10 @@ import de.undercouch.gradle.tasks.download.Download;
 
 import java.net.MalformedURLException;
 
+/**
+ * This tasks is a preconfigured @{@link Download} to download the crowdin-cli archive from
+ * 'https://downloads.crowdin.com/cli/v2/crowdin-cli.zip' into 'gradle/crowdin-cli/crowdin-cli.zip'
+ */
 public class CrowdinCliDownloadTask extends Download {
 
     public static final String TASK_NAME = "downloadCrowdinCli";

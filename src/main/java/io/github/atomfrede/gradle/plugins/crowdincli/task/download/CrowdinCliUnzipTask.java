@@ -19,6 +19,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This tasks depends on @{@link CrowdinCliDownloadTask} and extracts the downloaded
+ * crowdin-cli.zip to 'gradle/corowdin-cli/crowdin-cli.jar`. The content of the
+ * archive is flatted such that only the executable jar file is extracted to the destination directory.
+ */
 public class CrowdinCliUnzipTask extends AbstractCopyTask {
 
     public static final String TASK_NAME = "unzipCrowdinCli";

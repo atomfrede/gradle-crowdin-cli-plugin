@@ -29,6 +29,8 @@ public interface CrowdinSpec {
 
     List<String> getCommand();
 
+    boolean isVerbose();
+
 
 
 }

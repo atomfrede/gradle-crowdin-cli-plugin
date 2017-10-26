@@ -19,4 +19,17 @@ public class CrowdinCliDownloadTaskTest {
             .as("Correct crowdin cli download URL is set.")
             .isEqualTo("https://downloads.crowdin.com/cli/v2/crowdin-cli.zip");
     }
+
+    @Test
+    public void crowdin_cli_is_downloaded_only_if_newer() {
+
+        Project project = ProjectBuilder.builder().build();
+        CrowdinCliDownloadTask crowdinCliDownloadTask = project.getTasks().create(CrowdinCliDownloadTask.TASK_NAME, CrowdinCliDownloadTask.class);
+
+        assertThat(crowdinCliDownloadTask.isOnlyIfModified())
+            .as("Only if modified").isTrue();
+
+        assertThat(crowdinCliDownloadTask.isOnlyIfNewer())
+            .as("Only if newer").isTrue();
+    }
 }

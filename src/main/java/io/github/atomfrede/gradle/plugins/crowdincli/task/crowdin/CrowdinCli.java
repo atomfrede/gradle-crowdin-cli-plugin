@@ -120,7 +120,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         setCommandLine(commandLine);
 
-        System.out.println(commandLine);
         super.exec();
     }
 

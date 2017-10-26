@@ -26,3 +26,11 @@ task crowdinHelp(type: CrowdinCli) {
     command 'help'
     verbose true
 }
+
+task crowdinDownload(type: CrowdinCli) {
+    command 'download'
+    git {
+        enable true
+        commitMessage 'Hello World'
+    }
+}

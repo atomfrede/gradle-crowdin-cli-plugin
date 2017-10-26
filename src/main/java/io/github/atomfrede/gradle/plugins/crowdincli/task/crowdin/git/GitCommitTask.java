@@ -1,8 +1,26 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git;
 
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class GitCommitTask {
+
+    private final File configFile;
+    private final String commitMessage;
+
+    public GitCommitTask(final File configFile, final String commitMessage) {
+
+        this.configFile = configFile;
+        this.commitMessage = commitMessage;
+    }
+
+    public void commitTranslations() throws FileNotFoundException {
+
+        Yaml yamlFile = new Yaml().load(new FileReader(configFile));
+    }
 //
 //    /**
 //     * Convenience function for staging a file-tree for git commit

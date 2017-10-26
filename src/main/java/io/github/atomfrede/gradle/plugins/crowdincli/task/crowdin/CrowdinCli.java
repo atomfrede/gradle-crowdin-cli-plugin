@@ -1,15 +1,11 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin;
 
-import groovy.lang.Closure;
 import io.github.atomfrede.gradle.plugins.crowdincli.CrowdinCliPlugin;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git.Git;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git.GitSpec;
 import io.github.atomfrede.gradle.plugins.crowdincli.task.download.CrowdinCliUnzipTask;
 import org.gradle.api.Task;
 import org.gradle.api.tasks.AbstractExecTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
-import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 
@@ -22,13 +18,12 @@ import java.util.Set;
 
 public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinSpec {
 
-    private static final List<String> CROWDIN_CLI_COMMAND = Arrays.asList("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar");
+    protected static final List<String> CROWDIN_CLI_COMMAND = Arrays.asList("java", "-jar", "./gradle/crowdin-cli/crowdin-cli.jar");
 
-    private List<String> command;
-    private File configFile;
-    private File identityFile;
-    private boolean verbose = false;
-    private Git git;
+    protected List<String> command;
+    protected File configFile;
+    protected File identityFile;
+    protected boolean verbose = false;
 
     public CrowdinCli() {
 
@@ -42,9 +37,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         identityFile = null;
         configFile = null;
-
-        git = new Git();
-
     }
 
     @Override
@@ -100,26 +92,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     public boolean isVerbose() {
 
         return this.verbose;
-    }
-
-    public void git(Closure<Git> git) {
-
-        git.call();
-    }
-
-    @Nested
-    public Git getGit() {
-        return git;
-    }
-
-    public void enable(boolean enable) {
-
-        this.git.enable(enable);
-    }
-
-    public void commitMessage(String commitMessage) {
-
-        this.git.commitMessage(commitMessage);
     }
 
     private CrowdinCliUnzipTask findUnzipTask() {

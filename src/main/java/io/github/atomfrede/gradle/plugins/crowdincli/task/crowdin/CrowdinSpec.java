@@ -34,12 +34,4 @@ public interface CrowdinSpec {
     List<String> getCommand();
 
     boolean isVerbose();
-//
-//    void git(Git git);
-//
-//    GitSpec getGit();
-
-
-
-
 }

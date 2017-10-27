@@ -1,9 +1,5 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin;
 
-import groovy.lang.Closure;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git.Git;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git.GitSpec;
-
 import java.io.File;
 import java.util.List;
 

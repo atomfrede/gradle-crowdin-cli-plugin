@@ -36,7 +36,7 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
         command = new ArrayList<>();
 
         identityFile = null;
-        configFile = null;
+        configFile = new File(getProject().getProjectDir(), "crowdin.yaml");
     }
 
     @Override
@@ -69,7 +69,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     @Optional
     @Override
     public File getConfigFile() {
-
         return configFile;
     }
 

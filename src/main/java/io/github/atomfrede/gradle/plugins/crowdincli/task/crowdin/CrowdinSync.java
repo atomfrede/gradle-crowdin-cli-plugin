@@ -1,14 +1,13 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin;
 
-import groovy.lang.Closure;
-import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git.Git;
+import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.git.GitConfig;
 
 public class CrowdinSync extends CrowdinCli implements CrowdinSyncSpec {
 
     protected String branch;
     protected boolean dryRun;
     protected boolean tree;
-    protected Git git;
+    protected GitConfig git;
 
     @Override
     public void branch(String branch) {
@@ -26,10 +25,5 @@ public class CrowdinSync extends CrowdinCli implements CrowdinSyncSpec {
     public void tree(boolean showTree) {
 
         this.tree = showTree;
-    }
-
-    public void git(Closure<Git> git) {
-
-        this.git = new Git(git);
     }
 }

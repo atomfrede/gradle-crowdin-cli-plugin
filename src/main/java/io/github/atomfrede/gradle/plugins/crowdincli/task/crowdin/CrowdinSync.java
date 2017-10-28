@@ -26,4 +26,16 @@ public class CrowdinSync extends CrowdinCli implements CrowdinSyncSpec {
 
         this.tree = showTree;
     }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public boolean isDryRun() {
+        return dryRun;
+    }
+
+    public boolean isTree() {
+        return tree;
+    }
 }

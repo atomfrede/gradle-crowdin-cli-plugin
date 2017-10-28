@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by mautenrieth on 27.10.17.
+ * Preconfigured @{@link io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.CrowdinCli} task to download translation.
  */
 public class CrowdinDownload extends CrowdinSync implements CrowdinDownloadSpec {
 
@@ -57,8 +57,14 @@ public class CrowdinDownload extends CrowdinSync implements CrowdinDownloadSpec 
 
     @TaskAction
     public void downloadAndCommit() throws IOException, GitAPIException {
+
+        if (isDryRun()) {
+            this.command.add("--dryrun");
+        }
+
         // Configure the cli for download and exec
         this.command("download");
+
         this.exec();
 
         if (gitConfig.isEnabled()) {

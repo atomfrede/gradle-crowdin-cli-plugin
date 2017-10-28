@@ -57,6 +57,11 @@ public class CrowdinCliUnzipTask extends AbstractCopyTask {
         List<Task> allTasks = new ArrayList<>();
         allTasks.addAll(tasks);
 
+        if (allTasks.size() == 0) {
+            getLogger().error("Required task {} is missing.", CrowdinCliDownloadTask.TASK_NAME);
+            throw new RuntimeException(String.format("Required task %s is missing.", CrowdinCliDownloadTask.TASK_NAME));
+        }
+
         return (CrowdinCliDownloadTask) allTasks.get(0);
     }
 

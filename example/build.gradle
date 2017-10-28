@@ -16,6 +16,7 @@ repositories {
 }
 
 import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.CrowdinCli;
+import io.github.atomfrede.gradle.plugins.crowdincli.task.crowdin.download.CrowdinDownload;
 
 task crowdinLint(type: CrowdinCli) {
     command 'lint'
@@ -27,8 +28,7 @@ task crowdinHelp(type: CrowdinCli) {
     verbose true
 }
 
-task crowdinDownload(type: CrowdinCli) {
-    command 'download'
+task crowdinDownload(type: CrowdinDownload) {
     git {
         enable true
         commitMessage 'Hello World'

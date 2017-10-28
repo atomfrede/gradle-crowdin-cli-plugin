@@ -12,5 +12,6 @@ public class CrowdinUpload extends CrowdinSync implements CrowdinUploadSpec {
     @Override
     public void autoUpdate(boolean enabled) {
 
+        this.autoUpdate = enabled;
     }
 }

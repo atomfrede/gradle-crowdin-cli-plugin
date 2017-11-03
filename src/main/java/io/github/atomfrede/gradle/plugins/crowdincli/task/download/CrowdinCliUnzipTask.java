@@ -10,6 +10,7 @@ import org.gradle.api.internal.file.copy.CopySpecInternal;
 import org.gradle.api.internal.file.copy.DestinationRootCopySpec;
 import org.gradle.api.internal.file.copy.FileCopyAction;
 import org.gradle.api.tasks.AbstractCopyTask;
+import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.internal.reflect.Instantiator;
 
@@ -24,7 +25,7 @@ import java.util.Set;
  * crowdin-cli.zip to 'gradle/corowdin-cli/crowdin-cli.jar`. The content of the
  * archive is flatted such that only the executable jar file is extracted to the destination directory.
  */
-public class CrowdinCliUnzipTask extends AbstractCopyTask {
+public class CrowdinCliUnzipTask extends Copy {
 
     public static final String TASK_NAME = "unzipCrowdinCli";
     public static final String DESCRIPTION = "Unzip the crowdin cli into gradle/crowdin-cli";
@@ -63,36 +64,5 @@ public class CrowdinCliUnzipTask extends AbstractCopyTask {
         }
 
         return (CrowdinCliDownloadTask) allTasks.get(0);
-    }
-
-    @Override
-    protected CopyAction createCopyAction() {
-        File destinationDir = this.getDestinationDir();
-        if (destinationDir == null) {
-            throw new InvalidUserDataException("No copy destination directory has been specified, use 'into' to specify a target directory.");
-        } else {
-            return new FileCopyAction(this.getFileLookup().getFileResolver(destinationDir));
-        }
-    }
-
-    @Override
-    protected CopySpecInternal createRootSpec() {
-
-        Instantiator instantiator = this.getInstantiator();
-        FileResolver fileResolver = this.getFileResolver();
-        return (CopySpecInternal)instantiator.newInstance(DestinationRootCopySpec.class, new Object[]{fileResolver, super.createRootSpec()});
-    }
-
-    public DestinationRootCopySpec getRootSpec() {
-        return (DestinationRootCopySpec)super.getRootSpec();
-    }
-
-    @OutputDirectory
-    public File getDestinationDir() {
-        return this.getRootSpec().getDestinationDir();
-    }
-
-    public void setDestinationDir(File destinationDir) {
-        this.into(destinationDir);
     }
 }

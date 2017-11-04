@@ -1,20 +1,10 @@
 package io.github.atomfrede.gradle.plugins.crowdincli.task.download;
 
 import io.github.atomfrede.gradle.plugins.crowdincli.CrowdinCliPlugin;
-import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Task;
 import org.gradle.api.file.RelativePath;
-import org.gradle.api.internal.file.FileResolver;
-import org.gradle.api.internal.file.copy.CopyAction;
-import org.gradle.api.internal.file.copy.CopySpecInternal;
-import org.gradle.api.internal.file.copy.DestinationRootCopySpec;
-import org.gradle.api.internal.file.copy.FileCopyAction;
-import org.gradle.api.tasks.AbstractCopyTask;
 import org.gradle.api.tasks.Copy;
-import org.gradle.api.tasks.OutputDirectory;
-import org.gradle.internal.reflect.Instantiator;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

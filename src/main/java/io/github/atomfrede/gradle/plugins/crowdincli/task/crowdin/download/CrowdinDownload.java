@@ -22,6 +22,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +35,13 @@ public class CrowdinDownload extends CrowdinSync implements CrowdinDownloadSpec 
 
     protected GitConfig gitConfig = new GitConfig();
     protected String language = "all";
+
+    public CrowdinDownload() {
+
+        this.command = new ArrayList<>();
+        this.command.add("download");
+
+    }
 
     @Input
     @Optional
@@ -56,19 +65,20 @@ public class CrowdinDownload extends CrowdinSync implements CrowdinDownloadSpec 
     }
 
     @TaskAction
-    public void downloadAndCommit() throws IOException, GitAPIException {
+    public void exec() {
 
         if (isDryRun()) {
             this.command.add("--dryrun");
         }
 
-        // Configure the cli for download and exec
-        this.command("download");
-
-        this.exec();
+        super.exec();
 
         if (gitConfig.isEnabled()) {
-            commitTranslationFiles();
+            try {
+                commitTranslationFiles();
+            } catch (IOException | GitAPIException e) {
+                e.printStackTrace();
+            }
         }
     }
 

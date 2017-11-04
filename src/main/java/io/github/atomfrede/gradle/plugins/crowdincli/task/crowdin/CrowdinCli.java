@@ -22,7 +22,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
     protected List<String> command;
     protected File configFile;
-    protected File identityFile;
     protected boolean verbose = false;
 
     public CrowdinCli() {
@@ -35,20 +34,13 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         command = new ArrayList<>();
 
-        identityFile = null;
-        configFile = new File(getProject().getProjectDir(), "crowdin.yaml");
+        configFile = new File(getProject().getProjectDir(), "crowdin.yml");
     }
 
     @Override
     public void configFile(File configFile) {
 
         this.configFile = configFile;
-    }
-
-    @Override
-    public void identityFile(File identity) {
-
-        this.identityFile = identity;
     }
 
     @Override
@@ -70,14 +62,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
     @Override
     public File getConfigFile() {
         return configFile;
-    }
-
-    @InputFile
-    @Optional
-    @Override
-    public File getIdentity() {
-
-        return identityFile;
     }
 
     @Override
@@ -103,7 +87,6 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
         return (CrowdinCliUnzipTask) allTasks.get(0);
     }
 
-    @Override
     @TaskAction
     protected void exec() {
 
@@ -118,6 +101,7 @@ public class CrowdinCli extends AbstractExecTask<CrowdinCli> implements CrowdinS
 
         setCommandLine(commandLine);
 
+        System.out.println(commandLine);
         super.exec();
     }
 

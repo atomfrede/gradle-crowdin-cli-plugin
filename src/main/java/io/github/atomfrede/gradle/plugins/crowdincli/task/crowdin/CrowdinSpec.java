@@ -17,15 +17,11 @@ public interface CrowdinSpec {
      */
     void configFile(File configFile);
 
-    void identityFile(File identity);
-
     void command(String... arguments);
 
     void verbose(boolean verbose);
 
     File getConfigFile();
-
-    File getIdentity();
 
     List<String> getCommand();
 

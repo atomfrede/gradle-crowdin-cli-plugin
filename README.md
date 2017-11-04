@@ -23,6 +23,25 @@ task crowdinLint (type: CrowdinCli) {
     command 'lint'
 }
 ```
+
+### Authentication
+
+As your crowdin config file should not contain the api key you need to provide it via command line parameters.
+The cli can handle specific environment variables to read the api key from.
+
+As all tasks extend the exec task providing a the right environment variables is easy:
+
+```gradle
+task uploadSources (type: CrowdinUpload) {
+    if (project.hasProperty('crowdinApiKey')) {
+        environment = ['CROWDIN_API_KEY': crowdinApiKey]
+    }
+}
+```
+You should check for the existence of the required property, otherwise you won't be able to execute e.g. `gradle tasks` without providing the appropriate property.
+ 
+With following in the zour config file  `"api_key_env": CROWDIN_API_KEY` you can just trigger the upload with `gradle uploadSoures -PcrowdinApiKey=YOUR_API_KEY`.
+
 ## Custom Tasks
 
 You can create own task to customize both upload and download depending on you configuration:

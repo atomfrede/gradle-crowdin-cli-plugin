@@ -8,13 +8,22 @@ buildscript {
     }
 }
 
+plugins {
+    id 'pl.allegro.tech.build.axion-release' version '1.8.1'
+}
+
 apply plugin: 'java-gradle-plugin'
 apply from: "$rootDir/gradle/publishing-local.gradle"
 apply from: "$rootDir/gradle/codeQuality.gradle"
 apply plugin: 'com.github.ben-manes.versions'
 
 group = 'io.github.atomfrede'
-version = '0.0.1'
+
+scmVersion {
+    tag {
+        prefix = ''
+    }
+}
 
 repositories {
     jcenter()
